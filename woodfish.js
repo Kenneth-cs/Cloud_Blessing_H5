@@ -5,13 +5,51 @@ let canPlayAudio = true; // 标记是否可以播放音频
 // 预加载音频
 function initAudio() {
     try {
-        woodfishSound = new Audio('https://gw.alipayobjects.com/os/sage/1638958990420/muyu.mp3');
-        woodfishSound.addEventListener('error', () => {
-            console.log('音频加载失败，将继续无声模式');
-            canPlayAudio = false;
+        // 创建音频上下文
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+        
+        // 使用多个备选音源
+        const audioSources = [
+            'assets/sounds/muyu.mp3',
+            'https://gw.alipayobjects.com/os/sage/1638958990420/muyu.mp3',
+            'https://prod.wave.webaverse.com/assets/sounds/woodblock.mp3'
+        ];
+
+        // 尝试加载第一个可用的音源
+        async function loadAudio() {
+            for (const source of audioSources) {
+                try {
+                    woodfishSound = new Audio(source);
+                    await woodfishSound.play();
+                    woodfishSound.pause();
+                    woodfishSound.currentTime = 0;
+                    console.log('音频加载成功:', source);
+                    return true;
+                } catch (error) {
+                    console.log('尝试加载音频失败:', source);
+                    continue;
+                }
+            }
+            return false;
+        }
+
+        // 初始化音频
+        loadAudio().then(success => {
+            if (!success) {
+                console.log('所有音频源都加载失败，切换到无声模式');
+                canPlayAudio = false;
+            }
         });
+
+        // 添加用户交互时初始化音频的处理
+        document.addEventListener('click', function initOnClick() {
+            audioContext.resume();
+            document.removeEventListener('click', initOnClick);
+        }, { once: true });
+
     } catch (error) {
-        console.log('音频初始化失败，将继续无声模式');
+        console.log('音频初始化失败，切换到无声模式:', error);
         canPlayAudio = false;
     }
 }
@@ -52,13 +90,18 @@ function handleWoodfishClick(e) {
     // 播放音效（如果可用）
     if (canPlayAudio && woodfishSound) {
         try {
+            // 确保音频可以重复播放
             woodfishSound.currentTime = 0;
-            woodfishSound.play().catch(error => {
-                console.log('音频播放失败，切换到无声模式');
-                canPlayAudio = false;
-            });
+            let playPromise = woodfishSound.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('音频播放失败，切换到无声模式:', error);
+                    canPlayAudio = false;
+                });
+            }
         } catch (error) {
-            console.log('音频播放出错，切换到无声模式');
+            console.log('音频播放出错，切换到无声模式:', error);
             canPlayAudio = false;
         }
     }
