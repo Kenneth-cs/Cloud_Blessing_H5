@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>敲木鱼 - 禅意木鱼</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <section class="woodfish-section">
+        <div class="nav-bar">
+            <a href="/index.html" class="back-btn">返回</a>
+            <a href="/wishes.html" class="wish-btn">祈愿记录</a>
+        </div>
+        <div class="woodfish-container">
+            <div class="blessing-text" id="blessingText"></div>
+            <img src="/assets/images/woodfish.png" 
+                 alt="木鱼" 
+                 class="woodfish" 
+                 id="woodfish">
+            <div class="hit-count">功德：<span id="hitCounter">0</span></div>
+        </div>
+        <div class="wish-container">
+            <input type="text" class="wish-input" placeholder="输入你的愿望" id="wishInput">
+            <button class="record-btn" onclick="recordWish()">记录祈愿</button>
+        </div>
+    </section>
+    <script src="/js/woodfish.js"></script>
+</body>
+</html> 

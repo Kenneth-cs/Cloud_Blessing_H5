@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祈愿记录 - 禅意木鱼</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class="wishes-section">
+        <div class="nav-bar">
+            <a href="index.html" class="back-btn">返回首页</a>
+            <a href="woodfish.html" class="woodfish-btn">继续敲木鱼</a>
+        </div>
+        <h2 class="page-title">我的祈愿</h2>
+        <div class="wishes-list" id="wishesList">
+            <!-- 示例祈愿 -->
+            <div class="wish-item">
+                <p class="wish-text">愿世界和平，人人安康</p>
+                <span class="wish-date">2024-03-14 12:00</span>
+            </div>
+        </div>
+        <div class="share-section">
+            <button class="share-btn" onclick="generateShareCard()">生成祈愿卡片</button>
+            <button class="invite-btn">邀请好友为你点福助愿</button>
+        </div>
+    </section>
+    <script src="wishes.js"></script>
+</body>
+</html> 
